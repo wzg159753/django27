@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'news1',
+    'course',
+    'users',
+    'doc',
 ]
 
 MIDDLEWARE = [
@@ -95,6 +99,10 @@ DATABASES = {
         },
     }
 }
+
+# （重要：因为重写了admin中的User类，就需要告诉django修改了这个类）
+# 指定自定义的User用户表 因为重写了父类 UserManager和Users
+AUTH_USER_MODEL = 'users.Users'
 
 # 在settings.py文件中指定redis配置
 CACHES = {
