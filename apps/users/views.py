@@ -17,7 +17,7 @@ from users.models import Users
 class RegisterView(View):
 
     """
-    /register/
+    /users/register/
     用户注册
     """
     def get(self, request):
@@ -47,6 +47,34 @@ class RegisterView(View):
             err_msg_str = '/'.join(err_msg_list)
 
             return to_json_data(errno=Code.PARAMERR, errmsg=err_msg_str)
+
+
+class LoginView(View):
+    """
+    /users/login/
+    用户登录视图
+    """
+    def get(self, request):
+        return render(request, 'users/login.html')
+
+    def post(self, request):
+        # 获取前端传来的数据
+        json_data = request.body
+        if not json_data:
+            return to_json_data(errno=Code.PARAMERR, errmsg=error_map[Code.PARAMERR])
+        dict_data = json.loads(json_data.decode('utf-8'))
+        # 将request传递给form表单
+        form = forms.LoginForm(data=dict_data, request=request)
+        # form验证的时候已经用login（）方法登录了
+        if form.is_valid():
+            return to_json_data(errmsg='登陆成功')
+        else:
+            err_msg_list = []
+            for item in forms.errors.get_json_data().values():
+                err_msg_list.append(item[0].get('message'))
+            err_msg_str = '/'.join(err_msg_list)  # 拼接错误信息为一个字符串
+            return to_json_data(errno=Code.PARAMERR, errmsg=err_msg_str)
+
 
 
 

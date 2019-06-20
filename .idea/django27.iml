@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/static" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/apps" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.6.7 (sftp://pyvip@192.168.35.133:22/home/pyvip/.virtualenvs/django27/bin/python3.6)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.5 (mysite)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
