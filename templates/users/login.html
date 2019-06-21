@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block link %}
-
+<link rel="stylesheet" href="{% static "css/authPro/auth.css" %}">
 {% endblock %}
 
 {% block main %}
@@ -37,4 +37,8 @@
   </div>
 </main>
 <!-- container end -->
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/users/login.js' %}"></script>
 {% endblock %}

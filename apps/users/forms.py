@@ -41,7 +41,7 @@ class RegisterForm(forms.Form):
     def clean_mobile(self):
         mobile = self.cleaned_data.get('mobile', '')
         if not re.match(r'^1[3-9]\d{9}$', mobile):
-            return forms.ValidationError
+            return forms.ValidationError("手机号格式错误")
 
         if Users.objects.filter(mobile=mobile).exists():
             return forms.ValidationError("手机号已存在")
@@ -49,21 +49,21 @@ class RegisterForm(forms.Form):
         return mobile
 
     def clean(self):
-        cleaned_data = super(RegisterForm, self).clean()
+        cleaned_data = super().clean()
         password = cleaned_data.get('password', None)
         password_repeat = cleaned_data.get('password_repeat', None)
         mobile = cleaned_data.get('mobile', None)
-        sms_text = cleaned_data.get('sms_text')
+        sms_text = cleaned_data.get('sms_code')
 
         if password != password_repeat:
-            raise forms.ValidationError
+            raise forms.ValidationError("两次输入密码不一致")
 
         conn = get_redis_connection('verify_codes')
         sms_key = f'sms_{mobile}'
         sms_value = conn.get(sms_key)
 
         if (not sms_value) or (sms_text != sms_value.decode('utf8')):
-            return forms.ValidationError("短信验证码错误")
+            raise forms.ValidationError("短信验证码错误")
 
 
 class LoginForm(forms.Form):
