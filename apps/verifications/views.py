@@ -13,7 +13,6 @@ from utils.res_code import Code, error_map
 from . import constants
 from utils.json_func import to_json_data
 from users.models import Users
-from utils.yuntongxun.sms import CCP
 from . import forms
 # Create your views here.
 
